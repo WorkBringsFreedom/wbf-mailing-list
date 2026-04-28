@@ -10,7 +10,14 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": ["mailing-list", "newsletter", "subscribe"],
+  "keywords": [
+    "mailing-list",
+    "newsletter",
+    "subscribe"
+  ],
   "author": "Work Brings Freedom",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^8.0.7"
+  }
 }

@@ -117,6 +117,16 @@ const server = http.createServer((req, res) => {
     return;
   }
   
+  // Stats endpoint
+  if (parsed.pathname === '/stats' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ 
+      books: 115,
+      collections: 5
+    }));
+    return;
+  }
+  
   // Not found
   res.writeHead(404, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ error: 'Not found' }));

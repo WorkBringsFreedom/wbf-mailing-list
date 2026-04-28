@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<!-- saved from url=(0231)file:///Users/openclaw/Library/Application%20Support/Claude/local-agent-mode-sessions/e1e5d4d3-056f-44a1-a6b8-ad3084fec72c/c40746f9-8469-4102-a1fe-89f22608e0e0/local_0d38d987-d380-443b-8d28-2fd8a81363ef/outputs/forbidden-shelf.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Brings Freedom</title>
+<link href="./forbiddenshelf_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111111;
+    --paper: #f3ecd8;
+    --blood: #c8102e;
+    --blood-dark: #8b0a1f;
+    --cream: #e8dec1;
+    --rule: #1a1a1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); color: var(--ink); font-family: "IBM Plex Mono", monospace; }
+  body.lock { overflow: hidden; }
+
+  /* ===== CAUTION TAPE BANNER ===== */
+  .caution {
+    background: repeating-linear-gradient(135deg, #111 0 18px, #ffd100 18px 36px);
+    height: 18px; width: 100%;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    background: var(--ink); color: var(--paper);
+    padding: 18px 40px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 3px solid var(--blood);
+  }
+  nav .logo {
+    font-family: "Bebas Neue", sans-serif; font-size: 30px; letter-spacing: 3px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  nav .logo .mark {
+    background: var(--blood); color: var(--paper); padding: 2px 10px; transform: rotate(-2deg);
+    border: 2px solid var(--paper); box-shadow: 3px 3px 0 var(--paper);
+  }
+  nav ul { list-style: none; display: flex; gap: 30px; }
+  nav ul a {
+    color: var(--paper); text-decoration: none; font-family: "IBM Plex Mono", monospace;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 2px; padding: 6px 2px;
+    border-bottom: 2px solid transparent; transition: all .15s;
+  }
+  nav ul a:hover { color: var(--blood); border-bottom-color: var(--blood); }
+  nav .tools { display: flex; gap: 14px; align-items: center; }
+  nav .tools button {
+    background: transparent; color: var(--paper); border: 1px solid var(--paper);
+    padding: 8px 14px; font-family: "IBM Plex Mono", monospace; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all .15s;
+  }
+  nav .tools button:hover { background: var(--blood); border-color: var(--blood); }
+  nav .tools .cart-btn { position: relative; }
+  nav .tools .cart-btn .count {
+    position: absolute; top: -8px; right: -8px; background: var(--blood); color: var(--paper);
+    width: 20px; height: 20px; border-radius: 50%; font-size: 11px;
+    display: flex; align-items: center; justify-content: center; font-weight: 700;
+  }
+  .nav-toggle { display: none; background: transparent; border: 1px solid var(--paper); color: var(--paper); padding: 6px 10px; font-family: "IBM Plex Mono", monospace; font-size: 18px; cursor: pointer; }
+  .nav-toggle:hover { background: var(--blood); border-color: var(--blood); }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; flex-wrap: wrap; }
+    nav .logo { font-size: 22px; letter-spacing: 2px; }
+    nav .logo .mark { padding: 2px 8px; }
+    .nav-toggle { display: block; }
+    nav ul { display: none; width: 100%; flex-direction: column; gap: 0; margin-top: 14px; border-top: 1px solid rgba(243,236,216,0.2); padding-top: 10px; }
+    nav ul.open { display: flex; }
+    nav ul li { width: 100%; }
+    nav ul a { display: block; padding: 10px 0; font-size: 14px; border-bottom: 1px solid rgba(243,236,216,0.1); }
+    nav .tools { gap: 8px; }
+    nav .tools button { padding: 6px 10px; font-size: 11px; letter-spacing: 1px; }
+
+    .hero { padding: 50px 20px 70px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+    .hero h1 { font-size: clamp(36px, 12vw, 52px); }
+    .hero p { font-size: 15px; max-width: 100%; }
+    .hero .cta a { padding: 14px 24px; font-size: 16px; }
+    .stamp-stack { height: 280px; }
+    .stamp.banned { font-size: 32px; top: 10px; left: 5%; }
+    .stamp.forbidden { font-size: 24px; top: 90px; left: 30%; }
+    .stamp.challenged { font-size: 18px; top: 160px; left: 2%; }
+    .stamp.property { font-size: 16px; top: 220px; left: 35%; }
+
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 24px 20px; }
+    .stats .stat .n { font-size: 36px; }
+
+    .section-header { padding: 50px 20px; }
+    .section-header h2 { font-size: clamp(28px, 8vw, 40px); }
+
+    .books-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 30px 20px; }
+    .book-card .cover { aspect-ratio: 2/3; }
+    .book-card .title { font-size: 13px; }
+
+    .cta-full { padding: 60px 20px; }
+    .cta-full h2 { font-size: clamp(28px, 8vw, 44px); }
+
+    .features { padding: 40px 20px; grid-template-columns: 1fr; gap: 24px; }
+    .feature-card { padding: 24px; }
+
+    .newsletter { padding: 60px 20px; }
+    .newsletter form { flex-direction: column; }
+    .newsletter input { border-right: 2px solid var(--ink); border-bottom: none; }
+
+    footer { padding: 40px 20px 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+
+    .modal-inner { width: 95vw; height: 85vh; grid-template-columns: 1fr; }
+    .modal-inner .cover-area { height: 200px; }
+    .modal-inner .body { padding: 20px; }
+    .modal-inner h3 { font-size: 22px; }
+
+    .drawer { width: 100vw; right: -100vw; }
+    .drawer.open { right: 0; }
+
+    .toast { left: 20px; right: 20px; transform: none; max-width: none; }
+  }
+
+  @media (max-width: 480px) {
+    .books-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--ink); color: var(--paper); padding: 80px 40px 120px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: "REDACTED REDACTED REDACTED REDACTED REDACTED REDACTED REDACTED REDACTED REDACTED";
+    position: absolute; top: 15px; left: 0; right: 0; font-family: "IBM Plex Mono", monospace;
+    color: rgba(200, 16, 46, 0.08); font-size: 90px; font-weight: 700; white-space: nowrap;
+    letter-spacing: 10px; pointer-events: none;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 4px 4px; pointer-events: none;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center;
+    max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;
+  }
+  .hero .eyebrow {
+    font-family: "Special Elite", cursive; font-size: 13px; color: var(--blood);
+    letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px;
+    display: inline-block; border: 1px solid var(--blood); padding: 6px 14px;
+  }
+  .hero h1 {
+    font-family: "Playfair Display", serif; font-weight: 900; font-size: clamp(52px, 8vw, 110px);
+    line-height: 0.92; letter-spacing: -2px; margin-bottom: 30px;
+  }
+  .hero h1 .redacted {
+    background: var(--blood); color: var(--blood); padding: 0 14px; display: inline-block;
+    transform: rotate(-1deg); user-select: none; cursor: pointer; transition: transform .2s;
+  }
+  .hero h1 .redacted:hover { transform: rotate(-1deg) scale(1.02); color: var(--paper); }
+  .hero p {
+    font-size: 17px; line-height: 1.6; max-width: 520px; margin-bottom: 36px;
+    color: #dcd5c0;
+  }
+  .hero .cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .hero .cta a {
+    font-family: "Bebas Neue", sans-serif; letter-spacing: 3px; font-size: 18px;
+    padding: 16px 32px; text-decoration: none; transition: all .15s; cursor: pointer;
+  }
+  .hero .cta .primary {
+    background: var(--blood); color: var(--paper); border: 2px solid var(--blood);
+  }
+  .hero .cta .primary:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+  .hero .cta .secondary {
+    background: transparent; color: var(--paper); border: 2px solid var(--paper);
+  }
+  .hero .cta .secondary:hover { background: var(--paper); color: var(--ink); }
+
+  /* stamp visual */
+  .stamp-stack { position: relative; height: 400px; }
+  .stamp {
+    position: absolute; font-family: "Bebas Neue", sans-serif; border: 5px double var(--blood);
+    color: var(--blood); padding: 14px 24px; letter-spacing: 5px; background: rgba(17,17,17,0.4);
+    backdrop-filter: blur(2px);
+  }
+  .stamp.banned {
+    top: 20px; left: 10%; font-size: 52px; transform: rotate(-8deg);
+  }
+  .stamp.forbidden {
+    top: 130px; left: 35%; font-size: 36px; transform: rotate(4deg);
+  }
+  .stamp.challenged {
+    top: 240px; left: 5%; font-size: 28px; transform: rotate(-3deg);
+  }
+  .stamp.property {
+    top: 320px; left: 40%; font-size: 22px; transform: rotate(6deg);
+    border-style: solid; border-width: 3px;
+  }
+
+  /* ===== STATS BAR ===== */
+  .stats {
+    background: var(--blood); color: var(--paper); padding: 30px 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .stats .stat { text-align: center; }
+  .stats .stat .n {
+    font-family: "Bebas Neue", sans-serif; font-size: 54px; line-height: 1; letter-spacing: 2px;
+  }
+  .stats .stat .l {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-top: 6px; opacity: 0.9;
+  }
+
+  /* ===== FILTER STRIP ===== */
+  .filters {
+    padding: 40px; background: var(--cream); border-bottom: 2px solid var(--ink);
+  }
+  .filters-inner { max-width: 1400px; margin: 0 auto; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .filters .label {
+    font-family: "Special Elite", cursive; font-size: 14px; text-transform: uppercase;
+    letter-spacing: 2px; margin-right: 10px;
+  }
+  .filters .search {
+    flex: 1; min-width: 220px; border: 2px solid var(--ink); background: var(--paper);
+    padding: 10px 14px; font-family: "IBM Plex Mono", monospace; font-size: 14px;
+  }
+  .filters .search:focus { outline: 3px solid var(--blood); outline-offset: 0; }
+  .chip {
+    background: transparent; border: 2px solid var(--ink); padding: 8px 14px; cursor: pointer;
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 1.5px; transition: all .15s;
+  }
+  .chip:hover { background: var(--ink); color: var(--paper); }
+  .chip.active { background: var(--blood); color: var(--paper); border-color: var(--blood); }
+
+  /* ===== SECTION ===== */
+  section.collection { padding: 80px 40px; max-width: 1400px; margin: 0 auto; }
+  .section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; border-bottom: 3px solid var(--ink); padding-bottom: 20px; }
+  .section-head h2 {
+    font-family: "Playfair Display", serif; font-weight: 900; font-size: 48px; line-height: 1;
+  }
+  .section-head .meta { font-family: "Special Elite", cursive; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ===== PRODUCT GRID ===== */
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 36px 28px;
+  }
+  .book {
+    position: relative; cursor: pointer; transition: transform .2s;
+  }
+  .book:hover { transform: translateY(-4px); }
+  .book .cover {
+    aspect-ratio: 2/3; background: var(--ink); color: var(--paper); position: relative;
+    display: flex; flex-direction: column; justify-content: space-between; padding: 20px;
+    border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--blood); overflow: hidden;
+  }
+  .book .cover img {
+    width: 100%; height: 100%; object-fit: cover; display: block; border: none;
+  }
+  .book .cover::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.05));
+    pointer-events: none;
+  }
+  .book .cover .title-area {
+    font-family: "Playfair Display", serif; font-weight: 700; font-size: 22px;
+    line-height: 1.1; letter-spacing: -0.5px;
+  }
+  .book .cover .redact-bar {
+    height: 12px; background: var(--blood); margin: 10px 0; width: 80%;
+  }
+  .book .cover .redact-bar.short { width: 40%; }
+  .book .cover .author {
+    font-family: "Special Elite", cursive; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.85; margin-top: auto;
+  }
+  .stamp-banned { display: none !important; }
+  .book .info { padding-top: 14px; }
+  .book .info .t { font-family: "Playfair Display", serif; font-weight: 700; font-size: 17px; line-height: 1.2; margin-bottom: 4px; }
+  .book .info .a { font-family: "IBM Plex Mono", monospace; font-size: 12px; opacity: 0.75; }
+
+  .book .buy-now {
+    margin-top: 10px; display: inline-block;
+    font-family: "Bebas Neue", sans-serif; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; background: var(--ink); color: var(--paper);
+    padding: 8px 16px; cursor: pointer; border: 2px solid var(--ink);
+    transition: all .15s; text-decoration: none;
+  }
+  .book .buy-now:hover { background: var(--blood); border-color: var(--blood); }
+  .book .get-free {
+    margin-top: 10px; display: inline-block;
+    font-family: "Bebas Neue", sans-serif; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; background: var(--blood); color: var(--paper);
+    padding: 8px 16px; cursor: pointer; border: 2px solid var(--blood);
+    transition: all .15s; text-decoration: none;
+  }
+  .book .get-free:hover { background: var(--ink); border-color: var(--ink); }
+  .book .card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+  /* cover theme variants */
+  .cover.theme-1 { background: var(--ink); }
+  .cover.theme-2 { background: var(--blood); color: var(--paper); }
+  .cover.theme-2 .redact-bar { background: var(--ink); }
+  .cover.theme-2 .stamp-banned { color: var(--ink); border-color: var(--ink); }
+  .cover.theme-3 { background: var(--cream); color: var(--ink); }
+  .cover.theme-3 .redact-bar { background: var(--ink); }
+  .cover.theme-4 { background: #2b2b2b; }
+  .cover.theme-4 .redact-bar { background: var(--paper); }
+  .cover.theme-4 .stamp-banned { color: var(--paper); border-color: var(--paper); }
+
+  /* ===== MANIFESTO STRIP ===== */
+  .manifesto {
+    background: var(--ink); color: var(--paper); padding: 100px 40px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .manifesto::before {
+    content: "WORK BRINGS FREEDOM"; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); font-family: "Bebas Neue", sans-serif;
+    font-size: 280px; letter-spacing: 20px; color: rgba(200, 16, 46, 0.07);
+    white-space: nowrap; pointer-events: none;
+  }
+  .manifesto .q {
+    font-family: "Playfair Display", serif; font-style: italic; font-weight: 400;
+    font-size: clamp(28px, 4vw, 48px); line-height: 1.3; max-width: 900px; margin: 0 auto;
+    position: relative; z-index: 2;
+  }
+  .manifesto .attr { font-family: "Special Elite", cursive; font-size: 14px; letter-spacing: 3px; margin-top: 30px; color: var(--blood); position: relative; z-index: 2; }
+
+  /* ===== NEWSLETTER ===== */
+  .newsletter { padding: 80px 40px; background: var(--blood); color: var(--paper); }
+  .newsletter-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .newsletter h3 { font-family: "Playfair Display", serif; font-weight: 900; font-size: 42px; margin-bottom: 16px; }
+  .newsletter p { margin-bottom: 30px; opacity: 0.95; }
+  .newsletter form { display: flex; gap: 0; max-width: 560px; margin: 0 auto; }
+  .newsletter input {
+    flex: 1; padding: 16px 20px; border: 2px solid var(--paper); background: var(--paper);
+    color: var(--ink); font-family: "IBM Plex Mono", monospace; font-size: 14px;
+  }
+  .newsletter button {
+    padding: 16px 28px; background: var(--ink); color: var(--paper); border: 2px solid var(--ink);
+    font-family: "Bebas Neue", sans-serif; letter-spacing: 3px; font-size: 16px; cursor: pointer; transition: all .15s;
+  }
+  .newsletter button:hover { background: var(--paper); color: var(--ink); }
+
+  /* ===== FOOTER ===== */
+  footer { background: var(--ink); color: var(--paper); padding: 60px 40px 30px; }
+  .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  footer h4 { font-family: "Bebas Neue", sans-serif; letter-spacing: 3px; font-size: 18px; margin-bottom: 16px; color: var(--blood); }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; font-size: 13px; }
+  footer ul a { color: var(--paper); text-decoration: none; opacity: 0.8; }
+  footer ul a:hover { opacity: 1; color: var(--blood); }
+  footer .brand-blurb { font-size: 13px; line-height: 1.6; opacity: 0.75; max-width: 360px; }
+  .footer-bottom { border-top: 1px solid #333; padding-top: 20px; display: flex; justify-content: space-between; font-size: 11px; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; font-family: "IBM Plex Mono", monospace; }
+
+  /* ===== MODAL (PRODUCT DETAIL) ===== */
+  .modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100;
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal.open { display: flex; }
+  .modal-inner {
+    background: var(--paper); max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto;
+    display: grid; grid-template-columns: 280px 1fr; position: relative;
+    border: 3px solid var(--ink); box-shadow: 12px 12px 0 var(--blood);
+  }
+  .modal-close {
+    position: absolute; top: 10px; right: 14px; background: var(--ink); color: var(--paper);
+    border: none; width: 36px; height: 36px; cursor: pointer; font-size: 20px; z-index: 3;
+  }
+  .modal-close:hover { background: var(--blood); }
+  .modal .cover-area { padding: 30px; background: var(--ink); display: flex; align-items: center; }
+  .modal .cover-area .cover { width: 100%; box-shadow: 6px 6px 0 var(--blood); }
+  .modal .body { padding: 30px 36px; }
+  .modal .body .meta-row { font-family: "Special Elite", cursive; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--blood-dark); margin-bottom: 10px; }
+  .modal .body h3 { font-family: "Playfair Display", serif; font-size: 34px; line-height: 1.1; margin-bottom: 6px; }
+  .modal .body .author { font-family: "IBM Plex Mono", monospace; margin-bottom: 20px; font-size: 14px; }
+  .modal .body .blurb { font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+  .modal .body .why-box {
+    background: var(--ink); color: var(--paper); padding: 16px 18px; margin-bottom: 20px;
+    border-left: 6px solid var(--blood);
+  }
+  .modal .body .why-box h5 { font-family: "Bebas Neue", sans-serif; letter-spacing: 3px; font-size: 14px; color: var(--blood); margin-bottom: 6px; }
+  .modal .body .why-box p { font-size: 13px; line-height: 1.5; }
+  .modal .body .actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .modal .body .actions button {
+    font-family: "Bebas Neue", sans-serif; letter-spacing: 2px; font-size: 14px; padding: 12px 20px;
+    cursor: pointer; transition: all .15s; border: 2px solid var(--ink);
+  }
+  .modal .body .actions .buy { background: var(--blood); color: var(--paper); border-color: var(--blood); }
+  .modal .body .actions .buy:hover { background: var(--blood-dark); }
+  .modal .body .actions .borrow { background: var(--ink); color: var(--paper); }
+  .modal .body .actions .borrow:hover { background: var(--paper); color: var(--ink); }
+  .modal .body .actions .save { background: var(--paper); color: var(--ink); }
+  .modal .body .actions .save:hover { background: var(--cream); }
+
+  /* ===== CART DRAWER ===== */
+  .drawer {
+    position: fixed; top: 0; right: -420px; width: 420px; max-width: 100vw; height: 100vh;
+    background: var(--paper); z-index: 200; transition: right .3s ease;
+    border-left: 3px solid var(--ink); display: flex; flex-direction: column;
+  }
+  .drawer.open { right: 0; box-shadow: -20px 0 60px rgba(0,0,0,0.4); }
+  .drawer header { background: var(--ink); color: var(--paper); padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+  .drawer header h4 { font-family: "Bebas Neue", sans-serif; letter-spacing: 3px; font-size: 20px; }
+  .drawer header .close { background: transparent; color: var(--paper); border: 1px solid var(--paper); width: 30px; height: 30px; cursor: pointer; }
+  .drawer .items { flex: 1; overflow-y: auto; padding: 20px; }
+  .drawer .item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px dashed #ccc; }
+  .drawer .item .mini-cover { width: 50px; height: 75px; background: var(--ink); flex-shrink: 0; }
+  .drawer .item .info { flex: 1; }
+  .drawer .item .info .t { font-family: "Playfair Display", serif; font-weight: 700; font-size: 15px; }
+  .drawer .item .info .a { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+  .drawer .item .info .p { font-family: "Bebas Neue", sans-serif; color: var(--blood); font-size: 16px; margin-top: 4px; letter-spacing: 1px; }
+  .drawer .item .remove { background: transparent; border: none; font-size: 20px; cursor: pointer; color: #999; }
+  .drawer .item .remove:hover { color: var(--blood); }
+  .drawer .empty { text-align: center; padding: 60px 20px; opacity: 0.6; font-family: "Special Elite", cursive; }
+  .drawer footer { padding: 20px; border-top: 2px solid var(--ink); background: var(--cream); }
+  .drawer footer .total { display: flex; justify-content: space-between; margin-bottom: 14px; font-family: "Bebas Neue", sans-serif; letter-spacing: 2px; font-size: 20px; }
+  .drawer footer .checkout { width: 100%; padding: 16px; background: var(--blood); color: var(--paper); border: none; font-family: "Bebas Neue", sans-serif; letter-spacing: 3px; font-size: 18px; cursor: pointer; }
+  .drawer footer .checkout:hover { background: var(--ink); }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--ink); color: var(--paper); padding: 14px 22px; font-family: "IBM Plex Mono", monospace;
+    font-size: 13px; letter-spacing: 1px; border-left: 4px solid var(--blood); z-index: 300;
+    transition: transform .3s; text-transform: uppercase;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { flex-direction: column; gap: 16px; padding: 14px 20px; }
+    nav ul { flex-wrap: wrap; justify-content: center; gap: 16px; }
+    .hero { padding: 50px 20px 80px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stamp-stack { height: 300px; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 24px 20px; }
+    .stats .stat .n { font-size: 40px; }
+    section.collection { padding: 50px 20px; }
+    .section-head { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .section-head h2 { font-size: 34px; }
+    .modal-inner { grid-template-columns: 1fr; }
+    .modal .cover-area { padding: 20px; }
+    .modal .cover-area .cover { max-width: 200px; margin: 0 auto; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .newsletter form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="caution"></div>
+
+<nav>
+  <div class="logo">
+    <span class="mark">WBF</span>
+    <span>WORK BRINGS FREEDOM</span>
+  </div>
+  <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">☰</button>
+  <ul id="navMenu">
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="collections.html">Collections</a></li>
+    <li><a href="ourstory.html">Our Story</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <div class="tools">
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">// THE MOVEMENT STARTS HERE</span>
+      <h1><span class="redacted">WORK BRINGS FREEDOM</span></h1>
+      <p>Work Brings Freedom is a movement built on the principle that knowledge creates liberty. We curate banned, challenged, and forbidden books — the ones they didn't want you to read. Because the most dangerous thing in the world is a mind that thinks for itself.</p>
+      <div class="cta">
+        <a class="primary" href="shop.html">Shop Now</a>
+        <a class="secondary" href="ourstory.html">Read Our Story</a>
+      </div>
+    </div>
+    <div class="stamp-stack">
+      <div class="stamp banned">FREEDOM</div>
+      <div class="stamp forbidden">GRIND</div>
+      <div class="stamp challenged">HUSTLE</div>
+      <div class="stamp property">LEGACY</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="n">16</div><div class="l">Books</div></div>
+  <div class="stat"><div class="n">8,400+</div><div class="l">Members</div></div>
+  <div class="stat"><div class="n">34</div><div class="l">Cities</div></div>
+  <div class="stat"><div class="n">3</div><div class="l">Years</div></div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters" id="library">
+  <div class="filters-inner">
+    <span class="label">// Filter:</span>
+    <input class="search" id="search" type="text" placeholder="Search title or author...">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="politics">Politics</button>
+    <button class="chip" data-filter="philosophy">Philosophy</button>
+    <button class="chip" data-filter="history">History</button>
+    <button class="chip" data-filter="sociology">Sociology</button>
+  </div>
+</div>
+
+<!-- COLLECTION 1 -->
+<section class="collection" id="collections">
+  <div class="section-head">
+    <h2>The Collection</h2>
+    <div class="meta">// 16 products showing</div>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <p class="q">"The books that the world calls immoral are books that show the world its own shame."</p>
+  <p class="attr">— Oscar Wilde</p>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="join">
+  <div class="newsletter-inner">
+    <h3>Join the Resistance.</h3>
+    <p>Get monthly dispatches on forbidden knowledge, banned authors, and the books they don't want you to read. No spam. No algorithms. Just ideas worth defending.</p>
+    <form onsubmit="event.preventDefault(); showToast(&#39;SUBSCRIBED. WELCOME TO THE RESISTANCE.&#39;);">
+      <input type="email" placeholder="your@email.com" required="">
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Work Brings Freedom</h4>
+      <p class="brand-blurb">A movement built on the principle that knowledge creates liberty. We curate banned, challenged, and forbidden books — the ones they didn't want you to read. Because the most dangerous thing in the world is a mind that thinks for itself.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html">All Books</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="shop.html">Politics</a></li>
+        <li><a href="shop.html">Philosophy</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="ourstory.html">Our Story</a></li>
+        <li><a href="ourstory.html#manifesto">The Manifesto</a></li>
+        <li><a href="join.html">Blog</a></li>
+        <li><a href="join.html">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://www.youtube.com/@workbringsfreedom" target="_blank">YouTube</a></li>
+        <li><a href="https://www.tiktok.com/@workbringsfreedom" target="_blank">TikTok</a></li>
+        <li><a href="https://www.instagram.com/workbringsfreedom/" target="_blank">Instagram</a></li>
+        <li><a href="https://workbringsfreedom.substack.com" target="_blank">Substack</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Work Brings Freedom &mdash; Built by Grind</div>
+    <div>/ No Excuses. No Regrets. /</div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="if(event.target===this) closeModal()">
+  <div class="modal-inner" id="modalInner"></div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="drawer" id="drawer">
+  <header>
+    <h4>Your Cart</h4>
+    <button class="close" onclick="toggleCart()">✕</button>
+  </header>
+  <div class="items" id="cartItems"><div class="empty">// YOUR CART IS EMPTY.<br>ADD SOMETHING WORTH BUILDING.</div></div>
+  <footer>
+    <div class="total"><span>Items</span><span id="cartTotal">0</span></div>
+    <button class="checkout" onclick="showToast('SAVED TO YOUR READING LIST.')">Save List</button>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ============ DATA ============
+    const PRODUCTS = [
+    { id:1, title:"1984", author:"George Orwell", year:1949, cat:"politics", theme:1,
+      coverImage:"covers/1984.jpg",
+      freeLink:"https://archive.org/details/1984novel00orwe_0",
+      buyLink:"https://amzn.to/4t1peP5",
+      blurb:"Big Brother is watching you. The definitive dystopian novel about totalitarian surveillance, thought control, and the destruction of truth. Orwell's terrifying vision of a world where 'War is Peace, Freedom is Slavery, Ignorance is Strength' remains chillingly relevant.",
+      reason:"Burned in the USSR. Still one of the most challenged books worldwide." },
+    { id:2, title:"Animal Farm", author:"George Orwell", year:1945, cat:"politics", theme:1,
+      coverImage:"covers/animal-farm.jpg",
+      freeLink:"https://archive.org/details/animalfarm0000orwe",
+      buyLink:"https://amzn.to/4ud0unN",
+      blurb:"All animals are equal, but some animals are more equal than others. A brilliant allegory of the Russian Revolution that exposes how revolutionary ideals are corrupted by power. Orwell's farmyard fable is required reading for understanding totalitarianism.",
+      reason:"Banned across the Eastern Bloc. Burned in Kenya (1991)." },
+    { id:3, title:"Brave New World", author:"Aldous Huxley", year:1932, cat:"politics", theme:1,
+      coverImage:"covers/brave-new-world.jpg",
+      freeLink:"https://archive.org/details/bravenewworld00huxl",
+      buyLink:"https://amzn.to/3R5s8Vx",
+      blurb:"A chilling vision of a future where humanity is engineered, drugged, and distracted into docile compliance. Huxley's warning about pleasure as control is arguably more prescient than Orwell's—he predicted that we would love our oppression.",
+      reason:"Banned in Ireland (1932). Among the most banned books of the 20th century." },
+    { id:4, title:"Fahrenheit 451", author:"Ray Bradbury", year:1953, cat:"politics", theme:1,
+      coverImage:"covers/fahrenheit-451.jpg",
+      freeLink:"https://archive.org/details/fahrenheit45100brad",
+      buyLink:"https://amzn.to/41UyPw5",
+      blurb:"The temperature at which book paper catches fire and burns. In a world where books are forbidden and firemen burn them, one fireman begins to question everything. A powerful defense of literature and free thought against the forces of ignorance.",
+      reason:"Ironically banned for 'vulgarity' and Bible-burning scenes." },
+    { id:5, title:"To Kill a Mockingbird", author:"Harper Lee", year:1960, cat:"history", theme:1,
+      coverImage:"covers/to-kill-a-mockingbird.jpg",
+      freeLink:"https://archive.org/details/tokillmockingbir00leeh",
+      buyLink:"https://amzn.to/423uUwW",
+      blurb:"The Pulitzer Prize-winning masterpiece about racial injustice in the American South. Through Scout's innocent eyes, we witness the moral courage of Atticus Finch and the brutal reality of prejudice. One of the most important American novels ever written.",
+      reason:"Removed from schools in Mississippi (2017). Among the most banned classics." },
+    { id:6, title:"The Handmaid's Tale", author:"Margaret Atwood", year:1985, cat:"politics", theme:1,
+      coverImage:"covers/the-handmaid-s-tale.jpg",
+      freeLink:"https://archive.org/details/handmaidstale00atwo",
+      buyLink:"https://amzn.to/4mY3KxP",
+      blurb:"Under His Eye. In the Republic of Gilead, women are stripped of all rights and reduced to their biological function. Offred's harrowing story is a warning about religious extremism and the fragility of freedom.",
+      reason:"Banned in Texas (2006). Still targeted by conservative groups." },
+    { id:7, title:"The Adventures of Huckleberry Finn", author:"Mark Twain", year:1884, cat:"history", theme:1,
+      coverImage:"covers/the-adventures-of-huckleberry-finn.jpg",
+      freeLink:"https://archive.org/details/mark-twain_the-adventures-of-huckleberry-finn",
+      buyLink:"https://amzn.to/49c00pU",
+      blurb:"All modern American literature comes from one book by Mark Twain called Huckleberry Finn. Hemingway was right. This towering novel about a boy and a runaway slave on the Mississippi is America's epic—a fierce indictment of slavery and racism disguised as a boy's adventure.",
+      reason:"Banned as 'trash' in 1885. Still banned in some districts today." },
+    { id:8, title:"The Grapes of Wrath", author:"John Steinbeck", year:1939, cat:"history", theme:1,
+      coverImage:"covers/the-grapes-of-wrath.jpg",
+      freeLink:"https://archive.org/details/grapesofwrath00stei",
+      buyLink:"https://amzn.to/3QNI26S",
+      blurb:"The story of the Joads, Oklahoma farmers driven from their land during the Dust Bowl. Steinbeck's searing portrait of poverty and exploitation ignited national outrage—and got him labeled a communist agitator by powerful interests.",
+      reason:"Burned in California (1939). Steinbeck was investigated by the FBI." },
+    { id:9, title:"Catch-22", author:"Joseph Heller", year:1961, cat:"history", theme:1,
+      coverImage:"covers/catch-22.jpg",
+      freeLink:"https://archive.org/details/catch2200hell",
+      buyLink:"https://amzn.to/4tUA6zH",
+      blurb:"There was only one catch. Catch-22 specified that a concern for one's own safety in the face of dangers that were real and immediate was the process of a rational mind. Heller's brilliant satire of military bureaucracy and the madness of war created a term that entered the dictionary.",
+      reason:"Banned in Ohio (1972). Among the most banned novels of the 20th century." },
+    { id:10, title:"Slaughterhouse-Five", author:"Kurt Vonnegut", year:1969, cat:"history", theme:1,
+      coverImage:"covers/slaughterhouse-five.jpg",
+      freeLink:"https://archive.org/details/slaughterhousefi00vonn",
+      buyLink:"https://amzn.to/4vOQuTr",
+      blurb:"So it goes. Vonnegut's masterpiece about the firebombing of Dresden, time travel, and the absurdity of war. Billy Pilgrim becomes 'unstuck in time' as Vonnegut asks whether we can ever make sense of human cruelty.",
+      reason:"Burned in North Dakota (1973). Vonnegut personally defended it." },
+    { id:11, title:"Of Mice and Men", author:"John Steinbeck", year:1937, cat:"history", theme:1,
+      coverImage:"covers/of-mice-and-men.jpg",
+      freeLink:"https://archive.org/details/ofmicemen0000unse",
+      buyLink:"https://amzn.to/4vV267w",
+      blurb:"Guys like us, that work on ranches, are the loneliest guys in the world. The tragic story of George and Lennie, two migrant workers during the Depression. Steinbeck's heartbreaking tale of friendship, dreams, and shattered hope.",
+      reason:"Challenged 50+ times 1990–2000. On the ALA's most challenged list." },
+    { id:12, title:"The Jungle", author:"Upton Sinclair", year:1906, cat:"history", theme:1,
+      coverImage:"covers/the-jungle.jpg",
+      freeLink:"https://archive.org/details/jungle00sinc",
+      buyLink:"https://amzn.to/42wMZUa",
+      blurb:"I aimed at the public's heart, and by accident I hit it in the stomach. Sinclair's exposé of the meatpacking industry shocked America and led to the Pure Food and Drug Act. The story of Jurgis Rudkus, a Lithuanian immigrant destroyed by the brutal machinery of American capitalism.",
+      reason:"Banned in Boston (1906). Changed federal food-safety law." },
+    { id:13, title:"Beloved", author:"Toni Morrison", year:1987, cat:"history", theme:1,
+      coverImage:"covers/beloved.jpg",
+      freeLink:"https://archive.org/details/belovednovel00morr",
+      buyLink:"https://amzn.to/4czEg9P",
+      blurb:"Winner of the Pulitzer Prize. A haunting masterpiece about Sethe, an escaped slave haunted by the ghost of her baby. Morrison's searing exploration of memory, trauma, and the brutal legacy of slavery is considered one of the greatest American novels.",
+      reason:"Removed from AP English in multiple states. Won the Pulitzer anyway." },
+    { id:14, title:"The Color Purple", author:"Alice Walker", year:1982, cat:"history", theme:1,
+      coverImage:"covers/the-color-purple.jpg",
+      freeLink:"https://archive.org/details/colorpurple00walk",
+      buyLink:"https://amzn.to/3QzMxC7",
+      blurb:"I'm poor, I'm black, I may be ugly... but I'm here. Celie's powerful journey from abuse to independence in the Jim Crow South. Walker's Pulitzer Prize-winning novel in letters is a testament to the resilience of the human spirit.",
+      reason:"Banned in California schools. Won Pulitzer and National Book Award." },
+    { id:15, title:"A People's History of the United States", author:"Howard Zinn", year:1980, cat:"history", theme:1,
+      coverImage:"covers/a-people-s-history-of-the-united-states.jpg",
+      freeLink:"https://archive.org/details/peopleshistoryof00zinn",
+      buyLink:"https://amzn.to/4kP9mMP",
+      blurb:"The history of the US from the perspective of those who have been left out of traditional narratives—Native Americans, slaves, laborers, women, and dissidents. Zinn's revisionist masterpiece challenges everything you learned in school about American history.",
+      reason:"Banned in Arizona (2012). The most politically targeted book in America." },
+    { id:16, title:"The Communist Manifesto", author:"Karl Marx and Friedrich Engels", year:1848, cat:"politics", theme:1,
+      coverImage:"covers/the-communist-manifesto.jpg",
+      freeLink:"https://archive.org/details/communistmanifes00marx",
+      buyLink:"https://amzn.to/49bNSoS",
+      blurb:"A spectre is haunting Europe—the spectre of communism. The most influential political pamphlet ever written. Marx and Engels' revolutionary call to action has shaped the course of world history, for better and worse.",
+      reason:"Banned across the West during the Cold War. Still restricted today." }
+];
+
+  // ============ STATE ============
+  let cart = [];
+  let activeFilter = 'all';
+  let searchQ = '';
+
+  // ============ RENDER ============
+  const grid = document.getElementById('productGrid');
+
+  function coverHTML(b) {
+    if (b.coverImage) {
+      return `<div class="cover" style="padding:0;"><img src="${b.coverImage}" alt="${b.title}" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>`;
+    }
+    return `
+      <div class="cover theme-${b.theme}">
+        <div class="title-area">${b.title}</div>
+        <div class="redact-bar"></div>
+        <div class="redact-bar short"></div>
+        <div class="author">${b.author}</div>
+      </div>
+    `;
+  }
+
+  function renderGrid() {
+    const filtered = PRODUCTS.filter(b => {
+      const matchesCat = activeFilter === 'all' || b.cat === activeFilter;
+      const matchesQ = !searchQ || (b.title + ' ' + b.author).toLowerCase().includes(searchQ.toLowerCase());
+      return matchesCat && matchesQ;
+    });
+    document.querySelector('.section-head .meta').textContent = `// ${filtered.length} product${filtered.length===1?'':'s'} showing`;
+    grid.innerHTML = filtered.map(b => `
+      <div class="book" onclick="openModal(${b.id})">
+        ${coverHTML(b)}
+        <div class="info">
+          <div class="t">${b.title}</div>
+          <div class="a">${b.author}</div>
+          <div class="card-actions">
+            ${b.buyLink ? `<a class="buy-now" href="${b.buyLink}" target="_blank" onclick="event.stopPropagation();">BUY NOW</a>` : ''}
+            ${b.freeLink ? `<a class="get-free" href="${b.freeLink}" target="_blank" onclick="event.stopPropagation();">FREE</a>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  renderGrid();
+
+  // ============ FILTER ============
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter;
+      renderGrid();
+    });
+  });
+  document.getElementById('search').addEventListener('input', e => {
+    searchQ = e.target.value;
+    renderGrid();
+  });
+
+  function toggleNav() {
+    document.getElementById('navMenu').classList.toggle('open');
+  }
+
+  // ============ MODAL ============
+  function openModal(id) {
+    const b = PRODUCTS.find(x => x.id === id);
+    if (!b) return;
+    document.getElementById('modalInner').innerHTML = `
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="cover-area">${coverHTML(b)}</div>
+      <div class="body">
+        <div class="meta-row">// Case File ${String(b.id).padStart(4,'0')} · Published ${b.year}</div>
+        <h3>${b.title}</h3>
+        <div class="author">by ${b.author}</div>
+        <p class="blurb">${b.blurb}</p>
+        <div class="why-box">
+          <h5>Product Details</h5>
+          <p>${b.reason}</p>
+        </div>
+        <div class="actions">
+          ${b.buyLink ? `<button class="buy" onclick="window.open('${b.buyLink}', '_blank')">BUY ON AMAZON</button>` : ''}
+          ${b.freeLink ? `<button class="save" onclick="window.open('${b.freeLink}', '_blank')">GET FREE</button>` : ''}
+        </div>
+      </div>
+    `;
+    document.getElementById('modal').classList.add('open');
+    document.body.classList.add('lock');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.classList.remove('lock');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeCart(); } });
+
+  // ============ CART ============
+  function addToCart(id) {
+    const b = PRODUCTS.find(x => x.id === id);
+    if (!b) return;
+    cart.push(b);
+    renderCart();
+    showToast(`ADDED: "${b.title.toUpperCase()}"`);
+    closeModal();
+  }
+  function removeFromCart(idx) {
+    cart.splice(idx, 1);
+    renderCart();
+  }
+  function renderCart() {
+    document.getElementById('cartCount').textContent = cart.length;
+    const itemsEl = document.getElementById('cartItems');
+    if (cart.length === 0) {
+      itemsEl.innerHTML = `<div class="empty">// YOUR CART IS EMPTY.<br>ADD SOMETHING WORTH BUILDING.</div>`;
+    } else {
+      itemsEl.innerHTML = cart.map((b, i) => `
+        <div class="item">
+          <div class="mini-cover" style="background:${b.theme===3?'var(--cream)':b.theme===2?'var(--blood)':'var(--ink)'}"></div>
+          <div class="info">
+            <div class="t">${b.title}</div>
+            <div class="a">${b.author}</div>
+          </div>
+          <button class="remove" onclick="removeFromCart(${i})">✕</button>
+        </div>
+      `).join('');
+    }
+    const total = 0;
+    document.getElementById('cartTotal').textContent = `0`;
+  }
+  function toggleCart() {
+    document.getElementById('drawer').classList.toggle('open');
+  }
+  function closeCart() {
+    document.getElementById('drawer').classList.remove('open');
+  }
+  renderCart();
+
+  // ============ TOAST ============
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // Smooth scroll for nav
+  document.querySelectorAll('nav ul a').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+
+</body></html>

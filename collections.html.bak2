@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collections — Work Brings Freedom</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:wght@900&family=Bebas+Neue&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111111;
+    --paper: #f3ecd8;
+    --blood: #c8102e;
+    --cream: #e8dec1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); color: var(--ink); font-family: "IBM Plex Mono", monospace; }
+
+  .caution {
+    background: repeating-linear-gradient(135deg, #111 0 18px, #ffd100 18px 36px);
+    height: 18px; width: 100%;
+  }
+
+  nav {
+    background: var(--ink); color: var(--paper);
+    padding: 18px 40px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 3px solid var(--blood);
+  }
+  nav .logo {
+    font-family: "Bebas Neue", sans-serif; font-size: 30px; letter-spacing: 3px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  nav .logo .mark {
+    background: var(--blood); color: var(--paper); padding: 2px 10px; transform: rotate(-2deg);
+    border: 2px solid var(--paper); box-shadow: 3px 3px 0 var(--paper);
+  }
+  nav ul { list-style: none; display: flex; gap: 30px; }
+  nav ul a {
+    color: var(--paper); text-decoration: none; font-size: 13px; text-transform: uppercase; letter-spacing: 2px;
+    border-bottom: 2px solid transparent; transition: all .15s;
+  }
+  nav ul a:hover, nav ul a.active { color: var(--blood); border-bottom-color: var(--blood); }
+
+  .page-header {
+    background: var(--ink); color: var(--paper); padding: 60px 40px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .page-header h1 {
+    font-family: "Playfair Display", serif; font-weight: 900; font-size: clamp(40px, 6vw, 80px);
+    letter-spacing: -2px;
+  }
+  .page-header p {
+    font-size: 15px; color: #dcd5c0; max-width: 600px; margin: 16px auto 0;
+  }
+
+  .collection {
+    padding: 60px 40px; border-bottom: 2px solid var(--ink);
+  }
+  .collection:nth-child(even) { background: var(--cream); }
+  .collection-header {
+    max-width: 1400px; margin: 0 auto 30px; display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .collection-header h2 {
+    font-family: "Playfair Display", serif; font-size: 36px; font-weight: 900;
+  }
+  .collection-header p {
+    font-size: 14px; max-width: 400px; color: #555; text-align: right;
+  }
+
+  .collection-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1400px; margin: 0 auto;
+  }
+  .book-card { cursor: pointer; transition: transform .15s; }
+  .book-card:hover { transform: translateY(-6px); }
+  .book-card .cover {
+    aspect-ratio: 2/3; background: var(--ink); display: flex; flex-direction: column;
+    justify-content: center; align-items: center; padding: 16px; border: 2px solid var(--ink);
+    position: relative; overflow: hidden;
+  }
+  .book-card .cover .title-area {
+    font-family: "Playfair Display", serif; font-weight: 900; font-size: 16px;
+    color: var(--paper); text-align: center; line-height: 1.2;
+  }
+  .book-card .cover .author {
+    font-size: 10px; color: var(--blood); margin-top: 8px; letter-spacing: 1px;
+  }
+  .book-card .cover img {
+    width: 100%; height: 100%; object-fit: cover; display: block; border: none;
+  }
+  .book-card .info { padding-top: 12px; }
+  .book-card .info .t { font-family: "Playfair Display", serif; font-size: 15px; font-weight: 700; }
+  .book-card .info .a { font-size: 12px; opacity: 0.75; }
+  .book-card .info .price { font-family: "Bebas Neue", sans-serif; font-size: 18px; color: var(--blood); margin-top: 4px; }
+
+  footer { background: var(--ink); color: var(--paper); padding: 50px 40px 30px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1400px; margin: 0 auto; }
+  footer h4 { font-family: "Bebas Neue", sans-serif; font-size: 20px; letter-spacing: 3px; margin-bottom: 16px; }
+  footer a { color: var(--paper); text-decoration: none; font-size: 13px; display: block; margin-bottom: 8px; opacity: 0.8; }
+  footer a:hover { color: var(--blood); }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; font-size: 13px; }
+  footer ul a { color: var(--paper); text-decoration: none; opacity: 0.8; }
+  footer ul a:hover { opacity: 1; color: var(--blood); }
+  .footer-bottom { border-top: 1px solid #333; padding-top: 20px; display: flex; justify-content: space-between; font-size: 11px; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; font-family: "IBM Plex Mono", monospace; }
+  footer .brand-blurb { font-size: 13px; line-height: 1.6; opacity: 0.75; max-width: 360px; }
+
+  @media (max-width: 900px) {
+    .collection-grid { grid-template-columns: repeat(2, 1fr); }
+    .collection-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .collection-header p { text-align: left; }
+  }
+
+  /* ===== MODAL ===== */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal-inner { background: var(--paper); max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; display: grid; grid-template-columns: 280px 1fr; position: relative; border: 3px solid var(--ink); box-shadow: 12px 12px 0 var(--blood); }
+  .modal-close { position: absolute; top: 10px; right: 14px; background: var(--ink); color: var(--paper); border: none; width: 36px; height: 36px; cursor: pointer; font-size: 20px; z-index: 3; }
+  .modal-close:hover { background: var(--blood); }
+  .modal .cover-area { padding: 30px; background: var(--ink); display: flex; align-items: center; justify-content: center; }
+  .modal .cover-area img { width: 100%; max-width: 220px; box-shadow: 6px 6px 0 var(--blood); }
+  .modal .body { padding: 30px 36px; }
+  .modal .body .meta-row { font-family: "Special Elite", cursive; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--blood-dark); margin-bottom: 10px; }
+  .modal .body h3 { font-family: "Playfair Display", serif; font-size: 34px; line-height: 1.1; margin-bottom: 6px; }
+  .modal .body .author { font-family: "IBM Plex Mono", monospace; margin-bottom: 20px; font-size: 14px; }
+  .modal .body .price { font-family: "Bebas Neue", sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--blood); margin-bottom: 14px; }
+  .modal .body .actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .modal .body .actions button { font-family: "Bebas Neue", sans-serif; letter-spacing: 2px; font-size: 14px; padding: 12px 20px; cursor: pointer; transition: all .15s; border: 2px solid var(--ink); }
+  .modal .body .actions .buy { background: var(--blood); color: var(--paper); border-color: var(--blood); }
+  .modal .body .actions .buy:hover { background: var(--blood-dark); }
+  .modal .body .actions .save { background: var(--paper); color: var(--ink); }
+  .modal .body .actions .save:hover { background: var(--cream); }
+
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--ink); color: var(--paper); padding: 14px 22px; font-family: "IBM Plex Mono", monospace;
+    font-size: 13px; letter-spacing: 1px; border-left: 4px solid var(--blood); z-index: 300;
+    transition: transform .3s; text-transform: uppercase;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 900px) {
+    .modal-inner { grid-template-columns: 1fr; }
+    .modal .cover-area { padding: 20px; }
+    .modal .cover-area img { max-width: 200px; }
+  }
+
+</style>
+</head>
+<body>
+<div class="caution"></div>
+
+<nav>
+  <div class="logo"><span class="mark">WBF</span> <span>WORK BRINGS FREEDOM</span></div>
+  <ul>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="collections.html" class="active">Collections</a></li>
+    <li><a href="ourstory.html">Our Story</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <div class="tools"><button onclick="location.href='index.html'">Home</button></div>
+</nav>
+
+<section class="page-header">
+  <h1>Collections</h1>
+  <p>Curated reading lists grouped by theme. Each collection is a doorway into a different tradition of thought.</p>
+</section>
+
+<section class="collection">
+  <div class="collection-header">
+    <div>
+      <h2>Foundations of Order</h2>
+      <p style="text-align:left; margin-top:8px;">The bedrock texts of political philosophy and the origins of Western political thought.</p>
+    </div>
+  </div>
+  <div class="collection-grid">
+    <div class="book-card" onclick="openModal(1)"><div class="cover"><img src="covers/politics.jpg" alt="Politics" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Politics</div><div class="a">Aristotle</div><div class="price">$12.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(2)"><div class="cover"><img src="covers/leviathan.jpg" alt="Leviathan" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Leviathan</div><div class="a">Thomas Hobbes</div><div class="price">$15.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(3)"><div class="cover"><img src="covers/reflections.jpg" alt="Reflections on the Revolution in France" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Reflections on the Revolution in France</div><div class="a">Edmund Burke</div><div class="price">$14.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(4)"><div class="cover"><img src="covers/federalist.jpg" alt="The Federalist Papers" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">The Federalist Papers</div><div class="a">Alexander Hamilton</div><div class="price">$16.00</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="collection">
+  <div class="collection-header">
+    <div>
+      <h2>Critiques of Modernity</h2>
+      <p style="text-align:left; margin-top:8px;">Books that diagnosed the spiritual and cultural decay of the modern world before most saw it coming.</p>
+    </div>
+  </div>
+  <div class="collection-grid">
+    <div class="book-card" onclick="openModal(5)"><div class="cover"><img src="covers/declinewest.jpg" alt="The Decline of the West" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">The Decline of the West</div><div class="a">Oswald Spengler</div><div class="price">$20.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(6)"><div class="cover"><img src="covers/menamongruins.jpg" alt="Men Among the Ruins" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Men Among the Ruins</div><div class="a">Julius Evola</div><div class="price">$19.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(7)"><div class="cover"><img src="covers/suicidewest.jpg" alt="Suicide of the West" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Suicide of the West</div><div class="a">James Burnham</div><div class="price">$18.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(8)"><div class="cover"><img src="covers/cultureofnarcissism.jpg" alt="The Culture of Narcissism" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">The Culture of Narcissism</div><div class="a">Christopher Lasch</div><div class="price">$16.00</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="collection">
+  <div class="collection-header">
+    <div>
+      <h2>American Identity</h2>
+      <p style="text-align:left; margin-top:8px;">The story of the American experiment — its promise, its perils, and its unraveling.</p>
+    </div>
+  </div>
+  <div class="collection-grid">
+    <div class="book-card" onclick="openModal(9)"><div class="cover"><img src="covers/democracyamerica.jpg" alt="Democracy in America" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Democracy in America</div><div class="a">Alexis de Tocqueville</div><div class="price">$17.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(10)"><div class="cover"><img src="covers/bowlingalone.jpg" alt="Bowling Alone" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Bowling Alone</div><div class="a">Robert D. Putnam</div><div class="price">$17.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(11)"><div class="cover"><img src="covers/deathofwest.jpg" alt="The Death of the West" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">The Death of the West</div><div class="a">Patrick J. Buchanan</div><div class="price">$22.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(12)"><div class="cover"><img src="covers/whyliberalism.jpg" alt="Why Liberalism Failed" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Why Liberalism Failed</div><div class="a">Patrick J. Deneen</div><div class="price">$20.00</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="collection">
+  <div class="collection-header">
+    <div>
+      <h2>The Forbidden Shelf</h2>
+      <p style="text-align:left; margin-top:8px;">The books most frequently banned, censored, or suppressed — the ones power fears most.</p>
+    </div>
+  </div>
+  <div class="collection-grid">
+    <div class="book-card" onclick="openModal(13)"><div class="cover"><img src="covers/cultureofcritique.jpg" alt="The Culture of Critique" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">The Culture of Critique</div><div class="a">Kevin B. MacDonald</div><div class="price">$24.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(14)"><div class="cover"><img src="covers/israellobby.jpg" alt="The Israel Lobby" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">The Israel Lobby</div><div class="a">John J. Mearsheimer</div><div class="price">$18.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(15)"><div class="cover"><img src="covers/democracygod.jpg" alt="Democracy: The God That Failed" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">Democracy: The God That Failed</div><div class="a">Hans-Hermann Hoppe</div><div class="price">$21.00</div></div>
+    </div>
+    <div class="book-card" onclick="openModal(16)"><div class="cover"><img src="covers/conservativemind.jpg" alt="The Conservative Mind" style="width:100%;height:100%;object-fit:cover;display:block;border:none;"></div>
+      <div class="info"><div class="t">The Conservative Mind</div><div class="a">Russell Kirk</div><div class="price">$18.00</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Work Brings Freedom</h4>
+      <p class="brand-blurb">A movement built on the principle that knowledge creates liberty. We curate banned, challenged, and forbidden books — the ones they didn't want you to read. Because the most dangerous thing in the world is a mind that thinks for itself.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html">All Books</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="shop.html">Politics</a></li>
+        <li><a href="shop.html">Philosophy</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="ourstory.html">Our Story</a></li>
+        <li><a href="ourstory.html#manifesto">The Manifesto</a></li>
+        <li><a href="join.html">Blog</a></li>
+        <li><a href="join.html">Community</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://www.youtube.com/@workbringsfreedom" target="_blank">YouTube</a></li>
+        <li><a href="https://www.tiktok.com/@workbringsfreedom" target="_blank">TikTok</a></li>
+        <li><a href="https://www.instagram.com/workbringsfreedom/" target="_blank">Instagram</a></li>
+        <li><a href="https://workbringsfreedom.substack.com" target="_blank">Substack</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Work Brings Freedom &mdash; Built by Grind</div>
+    <div>/ No Excuses. No Regrets. /</div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="cover-area"><img id="modalCover" src="" alt="" style="width:100%;max-width:220px;box-shadow:6px 6px 0 var(--blood);"></div>
+    <div class="body" id="modalBody"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const COLLECTIONS = [
+  { id:1, title:"Politics", author:"Aristotle", price:12.00, cover:"covers/politics.jpg" },
+  { id:2, title:"Leviathan", author:"Thomas Hobbes", price:15.00, cover:"covers/leviathan.jpg" },
+  { id:3, title:"Reflections on the Revolution in France", author:"Edmund Burke", price:14.00, cover:"covers/reflections.jpg" },
+  { id:4, title:"The Federalist Papers", author:"Alexander Hamilton", price:16.00, cover:"covers/federalist.jpg" },
+  { id:5, title:"The Decline of the West", author:"Oswald Spengler", price:20.00, cover:"covers/declinewest.jpg" },
+  { id:6, title:"Men Among the Ruins", author:"Julius Evola", price:19.00, cover:"covers/menamongruins.jpg" },
+  { id:7, title:"Suicide of the West", author:"James Burnham", price:18.00, cover:"covers/suicidewest.jpg" },
+  { id:8, title:"The Culture of Narcissism", author:"Christopher Lasch", price:16.00, cover:"covers/cultureofnarcissism.jpg" },
+  { id:9, title:"Democracy in America", author:"Alexis de Tocqueville", price:17.00, cover:"covers/democracyamerica.jpg" },
+  { id:10, title:"Bowling Alone", author:"Robert D. Putnam", price:17.00, cover:"covers/bowlingalone.jpg" },
+  { id:11, title:"The Death of the West", author:"Patrick J. Buchanan", price:22.00, cover:"covers/deathofwest.jpg" },
+  { id:12, title:"Why Liberalism Failed", author:"Patrick J. Deneen", price:20.00, cover:"covers/whyliberalism.jpg" },
+  { id:13, title:"The Culture of Critique", author:"Kevin B. MacDonald", price:24.00, cover:"covers/cultureofcritique.jpg" },
+  { id:14, title:"The Israel Lobby", author:"John J. Mearsheimer", price:18.00, cover:"covers/israellobby.jpg" },
+  { id:15, title:"Democracy: The God That Failed", author:"Hans-Hermann Hoppe", price:21.00, cover:"covers/democracygod.jpg" },
+  { id:16, title:"The Conservative Mind", author:"Russell Kirk", price:18.00, cover:"covers/conservativemind.jpg" }
+];
+
+function openModal(id) {
+  const b = COLLECTIONS.find(x => x.id === id);
+  if (!b) return;
+  document.getElementById('modalCover').src = b.cover;
+  document.getElementById('modalCover').alt = b.title;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="meta-row">// Collection Item ${String(b.id).padStart(4,'0')}</div>
+    <h3>${b.title}</h3>
+    <div class="author">by ${b.author}</div>
+    <div class="price">$${b.price.toFixed(2)}</div>
+    <div class="actions">
+      <button class="buy" onclick="showToast('BUY ON AMAZON — coming soon')">BUY ON AMAZON</button>
+      <button class="save" onclick="showToast('SAVED TO WISHLIST')">SAVE FOR LATER</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>

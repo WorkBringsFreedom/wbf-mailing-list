@@ -191,12 +191,12 @@
 
 <section class="hero">
   <h1><span class="redacted">JOIN THE RESISTANCE.</span></h1>
-  <p>Get monthly dispatches on forbidden knowledge, banned authors, and the books they don't want you to read. No spam. No algorithms. Just ideas worth defending.</p>
+  <p>Get weekly dispatches on forbidden knowledge, banned authors, and the books they don't want you to read. No spam. No algorithms. Just ideas worth defending.</p>
 </section>
 
 <section class="signup-section">
   <h2>Subscribe to the Newsletter</h2>
-  <p>Every month, we send one carefully curated dispatch: a banned book deep-dive, a profile of a suppressed thinker, and a reading list they hope you never find. Join thousands of readers who still believe ideas matter.</p>
+  <p>Every Friday, one banned book lands in your inbox — with a free link to read it. No paywalls. No algorithms. Just the ideas they tried to bury. Join the resistance.</p>
   <form id="signupForm" onsubmit="handleSubscribe(event)">
     <input type="email" id="emailInput" placeholder="your@email.com" required>
     <button type="submit" id="submitBtn">SUBSCRIBE</button>
@@ -252,17 +252,34 @@
 
 <section class="stats">
   <div class="stat">
-    <div class="n">16</div>
+    <div class="n" id="bookCount">...</div>
     <div class="l">Books Curated</div>
   </div>
   <div class="stat">
-    <div class="n">5</div>
+    <div class="n" id="collectionCount">...</div>
     <div class="l">Collections</div>
   </div>
   <div class="stat">
     <div class="n">1</div>
     <div class="l">Movement</div>
   </div>
+</script>
+
+<script>
+  async function updateStats() {
+    try {
+      const res = await fetch('https://wbf-mailing-list.onrender.com/stats');
+      const data = await res.json();
+      document.getElementById('bookCount').textContent = data.books || '...';
+      document.getElementById('collectionCount').textContent = data.collections || '...';
+    } catch (err) {
+      console.error('Failed to load stats:', err);
+      document.getElementById('bookCount').textContent = '115';
+      document.getElementById('collectionCount').textContent = '5';
+    }
+  }
+  updateStats();
+</script>
 </section>
 
 <section class="benefits">
@@ -270,29 +287,29 @@
   <div class="benefit">
     <div class="num">01</div>
     <div>
-      <h3>The Forbidden Book Report</h3>
-      <p>A monthly deep-dive into one banned or suppressed book — its history, why it was censored, and why it still matters today.</p>
+      <h3>Weekly Banned Book</h3>
+      <p>Every Friday, one forbidden book lands in your inbox — with a free link to read it. No paywalls. Just the raw text they tried to erase.</p>
     </div>
   </div>
   <div class="benefit">
     <div class="num">02</div>
     <div>
-      <h3>Suppressed Thinker Profiles</h3>
-      <p>Biographies of the writers, philosophers, and dissidents who paid a price for speaking truth to power.</p>
+      <h3>Why It Was Banned</h3>
+      <p>The real reason censors fear this book. Not the sanitized version — the truth about who banned it and why.</p>
     </div>
   </div>
   <div class="benefit">
     <div class="num">03</div>
     <div>
-      <h3>Curated Reading Lists</h3>
-      <p>Themed collections you won't find on Amazon's recommendation engine. Books chosen by humans who've actually read them.</p>
+      <h3>Buy the Hard Copy</h3>
+      <p>Want it on your shelf? Every email includes an Amazon link to own the physical book. Build your forbidden library.</p>
     </div>
   </div>
   <div class="benefit">
     <div class="num">04</div>
     <div>
-      <h3>Early Access to Drops</h3>
-      <p>Subscribers get first access to new collections, limited editions, and exclusive content before the public.</p>
+      <h3>Join the Resistance</h3>
+      <p>Read what they don't want you to read. Share what they want buried. Every mind that thinks for itself is a threat to their power.</p>
     </div>
   </div>
 </section>

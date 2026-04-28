@@ -1,0 +1,16 @@
+From: dispatch@workbringsfreedom.com
+To: cpbjun@gmail.com
+Subject: WBF Test - Newsletter System
+
+Work Brings Freedom
+═══════════════════════════════════════
+
+TEST EMAIL
+
+This is a test of the WBF newsletter system.
+
+If you're receiving this, the Himalaya email client is working correctly!
+
+═══════════════════════════════════════
+
+Sent from dispatch@workbringsfreedom.com
