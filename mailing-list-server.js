@@ -79,8 +79,11 @@ const server = http.createServer((req, res) => {
         
         subscribers.push({
           email,
+          name: data.name || '',
+          address: data.address || '',
+          genre: data.genre || 'any',
           subscribedAt: new Date().toISOString(),
-          source: data.source || 'join.html'
+          source: data.source || 'WBF2'
         });
         
         saveSubscribers(subscribers);
