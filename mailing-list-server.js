@@ -146,15 +146,3 @@ server.listen(PORT, () => {
   console.log(`WBF mailing list server running on port ${PORT}`);
   console.log(`Subscribers stored in: ${DATA_FILE}`);
 });
-
-// Debug endpoint
-if (parsed.pathname === '/debug' && req.method === 'GET') {
-  const files = fs.readdirSync(__dirname);
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ 
-    dir: __dirname,
-    files: files,
-    hasCollections: fs.existsSync(path.join(__dirname, 'collections.html'))
-  }));
-  return;
-}
