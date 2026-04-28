@@ -117,12 +117,22 @@ const server = http.createServer((req, res) => {
     return;
   }
   
-  // Stats endpoint
+// Stats endpoint
   if (parsed.pathname === '/stats' && req.method === 'GET') {
+    // Count collections from collections.html
+    let collections = 5;
+    try {
+      const collectionsHtml = fs.readFileSync(path.join(__dirname, 'collections.html'), 'utf8');
+      const matches = collectionsHtml.match(/<section class="collection"/g);
+      if (matches) collections = matches.length;
+    } catch (e) {
+      // fallback to 5
+    }
+    
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ 
       books: 115,
-      collections: 5
+      collections: collections
     }));
     return;
   }
