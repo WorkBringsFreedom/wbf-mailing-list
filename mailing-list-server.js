@@ -155,6 +155,44 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // ===== DOWNLOAD TRACKING =====
+  const DOWNLOADS_FILE = path.join(__dirname, 'downloads.json');
+
+  function loadDownloads() {
+    try {
+      const data = fs.readFileSync(DOWNLOADS_FILE, 'utf8');
+      return JSON.parse(data);
+    } catch {
+      return {};
+    }
+  }
+
+  function saveDownloads(downloads) {
+    fs.writeFileSync(DOWNLOADS_FILE, JSON.stringify(downloads, null, 2));
+  }
+
+  // POST /download?book=1984
+  if (parsed.pathname === '/download' && req.method === 'POST') {
+    const book = parsed.query.book || 'unknown';
+    const downloads = loadDownloads();
+    downloads[book] = (downloads[book] || 0) + 1;
+    saveDownloads(downloads);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, book, downloads: downloads[book] }));
+    return;
+  }
+
+  // GET /stats/downloads
+  if (parsed.pathname === '/stats/downloads' && req.method === 'GET') {
+    const downloads = loadDownloads();
+    const top = Object.entries(downloads)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ top }));
+    return;
+  }
+
   // 404
   res.writeHead(404, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ error: 'Not found' }));
@@ -165,3 +203,22 @@ server.listen(PORT, () => {
   console.log(`Subscribers stored in: ${DATA_FILE}`);
 });
 
+
+// ===== DOWNLOAD TRACKING =====
+const DOWNLOADS_FILE = path.join(__dirname, 'downloads.json');
+
+function loadDownloads() {
+  try {
+    const data = fs.readFileSync(DOWNLOADS_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch {
+    return {};
+  }
+}
+
+function saveDownloads(downloads) {
+  fs.writeFileSync(DOWNLOADS_FILE, JSON.stringify(downloads, null, 2));
+}
+
+// This section would need to be integrated inside the createServer callback
+// For now, let's create a separate addDownloadsEndpoints function
