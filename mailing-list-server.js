@@ -141,6 +141,21 @@ const server = http.createServer((req, res) => {
   }
   
   // Not found
+  // Reset endpoint - clear all subscribers
+  if (parsed.pathname === '/reset' && req.method === 'POST') {
+    const secretKey = parsed.query.key;
+    if (secretKey !== process.env.ADMIN_KEY) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Forbidden' }));
+      return;
+    }
+    saveSubscribers([]);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, message: 'All subscribers cleared' }));
+    return;
+  }
+
+  // 404
   res.writeHead(404, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify({ error: 'Not found' }));
 });
@@ -150,16 +165,3 @@ server.listen(PORT, () => {
   console.log(`Subscribers stored in: ${DATA_FILE}`);
 });
 
-// Reset endpoint - clear all subscribers
-if (parsed.pathname === '/reset' && req.method === 'POST') {
-  const secretKey = parsed.query.key;
-  if (secretKey !== process.env.ADMIN_KEY) {
-    res.writeHead(403, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ error: 'Forbidden' }));
-    return;
-  }
-  saveSubscribers([]);
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ success: true, message: 'All subscribers cleared' }));
-  return;
-}
