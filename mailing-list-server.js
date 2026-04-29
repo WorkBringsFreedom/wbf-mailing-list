@@ -144,7 +144,7 @@ const server = http.createServer((req, res) => {
   // Reset endpoint - clear all subscribers
   if (parsed.pathname === '/reset' && req.method === 'POST') {
     const secretKey = parsed.query.key;
-    if (secretKey !== 'RESET123') {
+    if (secretKey !== process.env.ADMIN_KEY) {
       res.writeHead(403, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Forbidden' }));
       return;
