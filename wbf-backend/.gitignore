@@ -1,0 +1,5 @@
+node_modules/
+subscribers.json
+downloads.json
+.env
+*.env
