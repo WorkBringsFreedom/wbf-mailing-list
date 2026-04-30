@@ -14,3 +14,5 @@ services:
         value: https://workbringsfreedom.com,https://www.workbringsfreedom.com
       - key: ADMIN_KEY
         value: RESET123
+      - key: MONGODB_URI
+        sync: false

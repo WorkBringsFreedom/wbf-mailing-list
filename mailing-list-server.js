@@ -1,41 +1,42 @@
 const http = require('http');
+const url = require('url');
+const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
-const url = require('url');
 
-const DATA_FILE = path.join(__dirname, 'subscribers.json');
+// Load .env if present
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  fs.readFileSync(envPath, 'utf8')
+    .split('\n')
+    .filter(line => line.trim() && !line.startsWith('#'))
+    .forEach(line => {
+      const [key, ...rest] = line.split('=');
+      if (key && rest.length) {
+        process.env[key.trim()] = rest.join('=').trim();
+      }
+    });
+}
+
 const PORT = process.env.PORT || 3456;
+const MONGODB_URI = process.env.MONGODB_URI;
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://127.0.0.1:3000').split(',');
 
-// ===== DOWNLOAD TRACKING =====
-const DOWNLOADS_FILE = path.join(__dirname, 'downloads.json');
+let db = null;
+let client = null;
 
-function loadDownloads() {
-  try {
-    const data = fs.readFileSync(DOWNLOADS_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch {
-    return {};
+// Connect to MongoDB
+async function connectDB() {
+  if (db) return db;
+  if (!MONGODB_URI) {
+    console.error('ERROR: MONGODB_URI not set');
+    process.exit(1);
   }
-}
-
-function saveDownloads(downloads) {
-  fs.writeFileSync(DOWNLOADS_FILE, JSON.stringify(downloads, null, 2));
-}
-
-// Load existing subscribers
-function loadSubscribers() {
-  try {
-    const data = fs.readFileSync(DATA_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-// Save subscribers
-function saveSubscribers(subs) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(subs, null, 2));
+  client = new MongoClient(MONGODB_URI, { maxPoolSize: 10 });
+  await client.connect();
+  db = client.db('wbf');
+  console.log('Connected to MongoDB Atlas');
+  return db;
 }
 
 // Simple email validation
@@ -43,11 +44,8 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-const server = http.createServer((req, res) => {
-  const parsed = url.parse(req.url, true);
-  const origin = req.headers.origin;
-
-  // CORS headers
+// CORS headers helper
+function setCORS(res, origin) {
   if (origin && ALLOWED_ORIGINS.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   } else {
@@ -55,45 +53,61 @@ const server = http.createServer((req, res) => {
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
 
+const server = http.createServer(async (req, res) => {
+  const parsed = url.parse(req.url, true);
+  const origin = req.headers.origin;
+  
+  setCORS(res, origin);
+  
   if (req.method === 'OPTIONS') {
     res.writeHead(200);
     res.end();
     return;
   }
-
-  // Health check
-  if (parsed.pathname === '/health') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', subscribers: loadSubscribers().length }));
+  
+  try {
+    await connectDB();
+  } catch (err) {
+    console.error('MongoDB connection failed:', err.message);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Database unavailable' }));
     return;
   }
-
+  
+  // Health check
+  if (parsed.pathname === '/health') {
+    const subsCount = await db.collection('subscribers').countDocuments();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', subscribers: subsCount }));
+    return;
+  }
+  
   // Subscribe endpoint
   if (parsed.pathname === '/subscribe' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
-    req.on('end', () => {
+    req.on('end', async () => {
       try {
         const data = JSON.parse(body);
         const email = data.email?.trim().toLowerCase();
-
+        
         if (!email || !isValidEmail(email)) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'Invalid email address' }));
           return;
         }
-
-        const subscribers = loadSubscribers();
-
+        
         // Check for duplicates
-        if (subscribers.some(s => s.email === email)) {
+        const existing = await db.collection('subscribers').findOne({ email });
+        if (existing) {
           res.writeHead(409, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'Email already subscribed' }));
           return;
         }
-
-        subscribers.push({
+        
+        await db.collection('subscribers').insertOne({
           email,
           name: data.name || '',
           address: data.address || '',
@@ -101,24 +115,25 @@ const server = http.createServer((req, res) => {
           subscribedAt: new Date().toISOString(),
           source: data.source || 'WBF2'
         });
-
-        saveSubscribers(subscribers);
-
+        
+        const total = await db.collection('subscribers').countDocuments();
+        
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-          success: true,
+        res.end(JSON.stringify({ 
+          success: true, 
           message: 'Subscribed successfully',
-          subscribers: subscribers.length
+          subscribers: total 
         }));
-
+        
       } catch (err) {
+        console.error('Subscribe error:', err.message);
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Server error' }));
       }
     });
     return;
   }
-
+  
   // Get subscribers (protected - require secret key)
   if (parsed.pathname === '/subscribers' && req.method === 'GET') {
     const secretKey = parsed.query.key;
@@ -127,28 +142,33 @@ const server = http.createServer((req, res) => {
       res.end(JSON.stringify({ error: 'Forbidden' }));
       return;
     }
-    const subs = loadSubscribers();
+    const subs = await db.collection('subscribers').find().toArray();
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
+    res.end(JSON.stringify({ 
       count: subs.length,
-      subscribers: subs
+      subscribers: subs 
     }));
     return;
   }
-
-  // Stats endpoint - live data only, no hardcoded fallbacks
+  
+  // Stats endpoint
   if (parsed.pathname === '/stats' && req.method === 'GET') {
-    const downloads = loadDownloads();
-    const totalDownloads = Object.values(downloads).reduce((sum, n) => sum + n, 0);
+    const subsCount = await db.collection('subscribers').countDocuments();
+    const downloadsCol = db.collection('downloads');
+    const totalDownloads = await downloadsCol.aggregate([
+      { $group: { _id: null, total: { $sum: '$count' } } }
+    ]).toArray();
     
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      subscribers: loadSubscribers().length,
-      totalDownloads
+    res.end(JSON.stringify({ 
+      subscribers: subsCount,
+      totalDownloads: totalDownloads[0]?.total || 0,
+      books: 115,
+      collections: 5
     }));
     return;
   }
-
+  
   // Reset endpoint - clear all subscribers
   if (parsed.pathname === '/reset' && req.method === 'POST') {
     const secretKey = parsed.query.key;
@@ -157,7 +177,7 @@ const server = http.createServer((req, res) => {
       res.end(JSON.stringify({ error: 'Forbidden' }));
       return;
     }
-    saveSubscribers([]);
+    await db.collection('subscribers').deleteMany({});
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: true, message: 'All subscribers cleared' }));
     return;
@@ -166,22 +186,31 @@ const server = http.createServer((req, res) => {
   // POST /download?book=1984
   if (parsed.pathname === '/download' && req.method === 'POST') {
     const book = parsed.query.book || 'unknown';
-    const downloads = loadDownloads();
-    downloads[book] = (downloads[book] || 0) + 1;
-    saveDownloads(downloads);
+    await db.collection('downloads').updateOne(
+      { book },
+      { $inc: { count: 1 }, $setOnInsert: { book } },
+      { upsert: true }
+    );
+    const doc = await db.collection('downloads').findOne({ book });
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ success: true, book, downloads: downloads[book] }));
+    res.end(JSON.stringify({ success: true, book, downloads: doc?.count || 1 }));
     return;
   }
 
   // GET /stats/downloads
   if (parsed.pathname === '/stats/downloads' && req.method === 'GET') {
-    const downloads = loadDownloads();
-    const top = Object.entries(downloads)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 10);
+    const top = await db.collection('downloads')
+      .find()
+      .sort({ count: -1 })
+      .limit(10)
+      .project({ _id: 0, book: 1, count: 1 })
+      .toArray();
+    
+    // Format as [[book, count], ...] to match original API
+    const formatted = top.map(d => [d.book, d.count]);
+    
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ top }));
+    res.end(JSON.stringify({ top: formatted }));
     return;
   }
 
@@ -192,5 +221,12 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`WBF mailing list server running on port ${PORT}`);
-  console.log(`Subscribers stored in: ${DATA_FILE}`);
+  console.log(`Using MongoDB Atlas for persistent storage`);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('SIGTERM received, closing MongoDB connection...');
+  if (client) await client.close();
+  process.exit(0);
 });

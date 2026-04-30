@@ -18,6 +18,7 @@
   "author": "Work Brings Freedom",
   "license": "MIT",
   "dependencies": {
+    "mongodb": "^6.21.0",
     "nodemailer": "^8.0.7"
   }
 }
