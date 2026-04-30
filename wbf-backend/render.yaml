@@ -13,6 +13,6 @@ services:
       - key: ALLOWED_ORIGINS
         value: https://workbringsfreedom.com,https://www.workbringsfreedom.com
       - key: ADMIN_KEY
-        value: RESET123
+        sync: false
       - key: MONGODB_URI
         sync: false
