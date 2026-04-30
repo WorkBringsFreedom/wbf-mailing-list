@@ -1,0 +1,24 @@
+{
+  "name": "wbf-mailing-list",
+  "version": "1.0.0",
+  "description": "Work Brings Freedom mailing list backend",
+  "main": "mailing-list-server.js",
+  "scripts": {
+    "start": "node mailing-list-server.js",
+    "dev": "node mailing-list-server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mailing-list",
+    "newsletter",
+    "subscribe"
+  ],
+  "author": "Work Brings Freedom",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^6.21.0",
+    "nodemailer": "^8.0.7"
+  }
+}
