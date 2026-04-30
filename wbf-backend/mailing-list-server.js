@@ -32,7 +32,7 @@ async function connectDB() {
     console.error('ERROR: MONGODB_URI not set');
     process.exit(1);
   }
-  client = new MongoClient(MONGODB_URI, { maxPoolSize: 10 });
+  client = new MongoClient(MONGODB_URI, { maxPoolSize: 10, autoSelectFamily: false });
   await client.connect();
   db = client.db('wbf');
   console.log('Connected to MongoDB Atlas');
