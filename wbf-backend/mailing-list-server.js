@@ -1,9 +1,25 @@
 const http = require('http');
 const url = require('url');
 const { MongoClient } = require('mongodb');
+const fs = require('fs');
+const path = require('path');
+
+// Load .env if present
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  fs.readFileSync(envPath, 'utf8')
+    .split('\n')
+    .filter(line => line.trim() && !line.startsWith('#'))
+    .forEach(line => {
+      const [key, ...rest] = line.split('=');
+      if (key && rest.length) {
+        process.env[key.trim()] = rest.join('=').trim();
+      }
+    });
+}
 
 const PORT = process.env.PORT || 3456;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://workbringsfreedom_db_user:hItvyjfwzKFhKgr5@openclaw.ch8upzs.mongodb.net/wbf?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI;
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://127.0.0.1:3000').split(',');
 
 let db = null;
